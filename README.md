@@ -29,6 +29,28 @@ Example
 -------------
 ```
 object RetrofitClient {
+    // Base URL configuration (test environment)
+    private const val API_SCHEME = "https"
+    private const val API_TLD = "fyinformation"    // company identifier
+    private const val API_CC = "cc"               // country code
+    
+    private val BASE_URL = "$API_SCHEME://$API_TLD.$API_CC/"
+    
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY 
+    }
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build()
+    val api: ApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiService::class.java)
+    }
+}
     private const val BASE_URL = "https://test-ind-api.fyinformation.cc/"
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY 
