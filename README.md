@@ -27,11 +27,11 @@ You might also need [rules for OkHttp][okhttp proguard] which is a dependency of
 
 Example
 -------------
-
+```
 object RetrofitClient {
-    private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
+    private const val BASE_URL = "https://test-ind-api.fyinformation.cc/"
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY  // 打印完整请求日志
+        level = HttpLoggingInterceptor.Level.BODY 
     }
     private val client = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
@@ -45,7 +45,7 @@ object RetrofitClient {
             .create(ApiService::class.java)
     }
 }
-
+```
 License
 =======
 
