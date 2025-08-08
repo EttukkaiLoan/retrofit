@@ -25,6 +25,26 @@ ProGuard users must manually add the options from
 [retrofit2.pro][proguard file].
 You might also need [rules for OkHttp][okhttp proguard] which is a dependency of this library.
 
+Example
+-------------
+
+object RetrofitClient {
+    private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY  // 打印完整请求日志
+    }
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build()
+    val api: ApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiService::class.java)
+    }
+}
 
 License
 =======
