@@ -51,22 +51,6 @@ object RetrofitClient {
             .create(ApiService::class.java)
     }
 }
-    private const val BASE_URL = "https://test-ind-api.fyinformation.cc/"
-    private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY 
-    }
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor)
-        .build()
-    val api: ApiService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiService::class.java)
-    }
-}
 ```
 License
 =======
